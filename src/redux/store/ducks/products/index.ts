@@ -11,7 +11,7 @@ export interface ProductsState {
   products: [];
 }
 
-const produtcsSlice = createSlice({
+const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
@@ -33,6 +33,6 @@ const produtcsSlice = createSlice({
   }
 });
 
-export default produtcsSlice.reducer;
+export default productsSlice.reducer;
 
-export const { setProducts, setLoading, addLoading, deleteProduct, setAuthorization } = produtcsSlice.actions;
+export const { setProducts, setLoading, addLoading, deleteProduct, setAuthorization } = productsSlice.actions;
