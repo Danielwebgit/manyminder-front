@@ -3,6 +3,7 @@ import SingIn from '../screen/SignIn';
 import SignUp from '../screen/SignUp';
 import Suppliers from '../screen/Suppliers';
 import Product from '../screen/Product';
+import Users from '../screen/Users';
 import CreateProduct from '../screen/Product/create';
 import NoAuthorization from '../screen/NoAuthorization';
 import CreateSupplier from '../screen/Suppliers/create';
@@ -76,6 +77,11 @@ export const AppRoutes = () => {
                 <Route path='/produtos' element={
                 <PrivateRoute>
                     <Product/>
+                </PrivateRoute>
+                }/>
+                <Route path='/usuarios' element={
+                <PrivateRoute>
+                    <Users/>
                 </PrivateRoute>
                 }/>
                 <Route path='/produtos/registrar' element={

@@ -1,6 +1,7 @@
 import api from '../../../Services/api';
 import apiService from '../../../Services/apiService';
 import { setLoading, setProducts, deleteProduct, setAuthorization } from '../ducks/products';
+import { setUsers } from '../ducks/users';
 import { setLogin } from '../ducks/login';
 import Swal from 'sweetalert2'
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,6 +34,26 @@ export const fetchProducts = (): any => {
       }
       dispatch(setProducts(response.data));
       dispatch(setLoading(false))
+    });
+  }
+}
+
+export const fetchUsers = (): any => {
+  
+  return (dispatch: any) => {
+    
+    dispatch(setLoading(true));
+    
+    api.get('/users').then((response) => {
+
+      dispatch(setUsers(response.data));
+      dispatch(setLoading(false))
+
+    }).catch(() => {
+
+      dispatch(setLoading(false))
+      dispatch(setAuthorization(false));
+
     });
   }
 }

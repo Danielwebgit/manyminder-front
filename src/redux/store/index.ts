@@ -2,11 +2,13 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import produtcReduce from './ducks/products';
 import LoginReduce from './ducks/login';
+import UsersReduce from './ducks/users';
 
 const store = configureStore({
   reducer: {
       products: produtcReduce,
-      login: LoginReduce
+      login: LoginReduce,
+      users: UsersReduce
   }
 });
 
