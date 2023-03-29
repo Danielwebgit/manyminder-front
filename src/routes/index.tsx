@@ -9,8 +9,6 @@ import CreateSupplier from '../screen/Suppliers/create';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 import jwtDecode from 'jwt-decode';
-import apiService from '../Services/apiService';
-import { useState } from 'react';
 
 export const AppRoutes = () => {
 
@@ -28,8 +26,7 @@ export const AppRoutes = () => {
       
         try {
 
-            const time = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImNhcmxvc0BnbWFpbC5jb20iLCJwYXNzd29yZCI6InF1YWxxdWVyIiwiaWQiOjQsIkFQSV9USU1FIjoxNjgwMDU3MjEyfQ.uzx-z0Nj74A9j6-OuvsOligStjU-_pTNaCFiN25yKZ4';
-            const decodedToken = jwtDecode<Token>(time);
+            const decodedToken = jwtDecode<Token>(token);
 
             const minutos = Math.floor((decodedToken.API_TIME / 60) % 60);
             
@@ -38,7 +35,6 @@ export const AppRoutes = () => {
             const expirationDate = new Date(horaDecodeToken);
             console.log(minutos)
             const now = new Date();
-            //console.log(expirationDate)
             
             return now < expirationDate;
         } catch (err) {
