@@ -34,6 +34,8 @@ const SingIn = () => {
         navigate('/produtos');
     }
 
+    console.log("Olá estamos logando no sistema")
+
     const [formValues, setFormValues] = useState({
         email: '',
         password: ''

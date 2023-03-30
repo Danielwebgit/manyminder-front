@@ -24,7 +24,7 @@ const Product = () => {
 
   const loading = useSelector((state: loadignState) => state.products.loading.payload);
   //const loading = useSelector((state: loadignState) => state.products.loading.payload);
-  const { products } = useSelector((state: RootState): any => state.products);
+  //const { products } = useSelector((state: RootState): any => state.products);
 
   const { authorization } = useSelector((state: RootState): any => state.products);
   
