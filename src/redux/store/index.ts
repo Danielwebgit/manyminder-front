@@ -1,14 +1,18 @@
 import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import produtcReduce from './ducks/products';
-import LoginReduce from './ducks/login';
-import UsersReduce from './ducks/users';
+import loginReduce from './ducks/login';
+import usersReduce from './ducks/users';
+import loadingReduce from './ducks/loading';
+import suppliersReduce from './ducks/suppliers';
 
 const store = configureStore({
   reducer: {
       products: produtcReduce,
-      login: LoginReduce,
-      users: UsersReduce
+      suppliers: suppliersReduce,
+      login: loginReduce,
+      users: usersReduce,
+      loading: loadingReduce
   }
 });
 

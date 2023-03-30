@@ -7,8 +7,6 @@ import Users from '../screen/Users';
 import CreateProduct from '../screen/Product/create';
 import NoAuthorization from '../screen/NoAuthorization';
 import CreateSupplier from '../screen/Suppliers/create';
-import { Provider } from 'react-redux';
-import store from '../redux/store';
 import jwtDecode from 'jwt-decode';
 
 export const AppRoutes = () => {
@@ -18,35 +16,20 @@ export const AppRoutes = () => {
       }
 
     function checkIsAuthenticated()  {
+        
         const token = localStorage.getItem('token');
 
         if (!token) {
-         
-          return false;
-        }
-      
-        try {
-
-            const decodedToken = jwtDecode<Token>(token);
-
-            const minutos = Math.floor((decodedToken.API_TIME / 60) % 60);
-            
-            const horaDecodeToken = Math.floor(1680057212 * 1000);
-            
-            const expirationDate = new Date(horaDecodeToken);
-            console.log(minutos)
-            const now = new Date();
-            
-            return now < expirationDate;
-        } catch (err) {
-          return false;
+            return false;
+        } else {
+            return true;
         }
       }
 
     function PrivateRoute({children}: any) {
 
         
-        if (true) {
+        if (checkIsAuthenticated()) {
             
             return children
           }
@@ -55,8 +38,8 @@ export const AppRoutes = () => {
     }
 
     return (
-        <Provider store={store}>
-            <Routes>
+        
+        <Routes>
                 <Route path='/login' element={
                     
                         <SingIn/>
@@ -72,8 +55,12 @@ export const AppRoutes = () => {
                     <PrivateRoute>
                         <Suppliers/>
                     </PrivateRoute>
-                
                 }/>
+                <Route path='/fornecedores/registrar' element={
+                <PrivateRoute>
+                    <CreateSupplier/>
+                </PrivateRoute>
+                    }/>
                 <Route path='/produtos' element={
                 <PrivateRoute>
                     <Product/>
@@ -94,18 +81,11 @@ export const AppRoutes = () => {
                     <CreateProduct/>
                 </PrivateRoute>
                 }/>
-                <Route path='/fornecedor/registrar' element={
-                <PrivateRoute>
-                    <CreateSupplier/>
-                </PrivateRoute>
-                    }/>
-
                 <Route path='/nao-autorizado' element={
                         <NoAuthorization/>
                 }/>
                 
                 <Route path='*' element={<Navigate to="login" />}/>
-            </Routes>
-        </Provider>
+        </Routes>
     )
 }

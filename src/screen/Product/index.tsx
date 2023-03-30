@@ -27,53 +27,41 @@ const Product = () => {
   //const { products } = useSelector((state: RootState): any => state.products);
 
   const { authorization } = useSelector((state: RootState): any => state.products);
-  
-  if(authorization.payload == false) {
+
+  if (authorization.payload == false) {
     navigate('/nao-autorizado');
   }
-  
+
   useEffect(() => {
 
     dispatch(fetchProducts());
 
   }, [])
 
-    return (
-        <Container maxWidth={false} style={{ backgroundColor: "#f3f3f366", width: "55%", height: "1000px" }}>
-            <Grid container spacing={2} >
-            <Grid item xs={6} sm={12} md={12}>
-                <Card style={{marginTop: 10, height: "150px", display: "flex",justifyContent: "center", alignItems: "center"}}>
-                <div><img
-                  style={{
-                    borderRadius: "15px",
-                    height: "49px",
-                    width: "240px",
-                  }}
-                  alt="complex"
-                  src="https://www.manyminds.com.br/assets/images/manyminds.png"
-                /></div>
-                </Card>
-            </Grid>
-            <Grid item xs={6} sm={12} md={12}>
-                <Card style={{ height: "800px", display: "flex",justifyContent: "center", alignItems: "center"}}>
-                    <div>
-                      <Link to={'/produtos/registrar'}>
-                        <Button style={{display: "flex", marginTop: '80px', marginBottom: '10px', float: 'right', height: 40, width: 200}} variant="contained" color="primary">
-                                  Cadastrar novo
-                        </Button>
-                      </Link>
-                        {
-                          loading ? <Spinner /> :
-                          <div style={{ width: 800,height: '100%', display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                            {/* <BasicTable products={products}/>  */}
-                            <ProductTable />
-                          </div>
-                        }
-                    </div>
-                </Card>
-            </Grid>
-            </Grid>
-        </Container>
-    )
+  return (
+    <Grid container spacing={0} style={{marginTop: 40}}>
+      <Grid item xs={12} sm={12} md={12} lg={12} style={{ display: "flex", backgroundColor: "#8545", justifyContent: "center" }}>
+        <div style={{position: 'absolute'}}>
+          <Card>
+
+            <Link to={'/produtos/registrar'}>
+              <Button style={{ marginBottom: '10px', float: 'right', height: 40, width: 200 }} variant="contained" color="primary">
+                Cadastrar novo
+              </Button>
+            </Link>
+            {
+              loading ? <Spinner /> :
+                <div style={{ width: 800, height: '100%', display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                  {/* <BasicTable products={products}/>  */}
+                  <ProductTable />
+                </div>
+            }
+
+          </Card>
+        </div>
+
+      </Grid>
+    </Grid>
+  )
 }
 export default Product;

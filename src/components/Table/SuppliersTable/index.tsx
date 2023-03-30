@@ -87,22 +87,23 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-const ProductTable = () => {
+const SuppliersTable = () => {
   
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const { products }: any = useSelector((state: RootState): any => state.products) ?? [];
-  
-  const rowSlice = products?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
+  const { suppliers }: any = useSelector((state: RootState): any => state.suppliers) ?? [];
+
+  const rowSlice = suppliers?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - suppliers.length) : 0;
 
   const handleProductEdit = (productData: any) => {
     localStorage.setItem("productData", JSON.stringify(productData))
   }
 
-  const handleProductDelete = (productId: any) => {
-    store.dispatch(actionDeleteProduct(productId));
+  const handleProductDelete = (suppliersId: any) => {
+    store.dispatch(actionDeleteProduct(suppliersId));
   }
 
   const handleChangePage = (
@@ -125,10 +126,8 @@ const ProductTable = () => {
       <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
-            <TableCell align="right">Título</TableCell>
-            <TableCell align="right">Descrição</TableCell>
-            <TableCell align="right">Preço</TableCell>
-            <TableCell align="right">Fornecedor</TableCell>
+            <TableCell align="right">Nome</TableCell>
+            <TableCell align="right">CNPJ</TableCell>
             <TableCell align="right">Status</TableCell>
             <TableCell align="right">Ação</TableCell>
           </TableRow>
@@ -136,23 +135,17 @@ const ProductTable = () => {
         <TableBody>
           {(rowsPerPage > 0
             ? rowSlice
-            : products
+            : suppliers
           )?.map((row: any) => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-              {row.name}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-              {row.description}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-              {row.priceUn}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
               {row.username}
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+              {row.cnpj}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
               {row.activated === '1' ? <span style={{backgroundColor: '#81f292'}}>Ativado</span> : <span style={{backgroundColor: '#ffb31c'}}>Desativado</span>}
@@ -178,7 +171,7 @@ const ProductTable = () => {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={8}
-              count={products?.length}
+              count={suppliers?.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{
@@ -198,4 +191,4 @@ const ProductTable = () => {
   );
 }
 
-export default ProductTable;
+export default SuppliersTable;

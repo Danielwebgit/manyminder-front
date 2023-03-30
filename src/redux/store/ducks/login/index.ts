@@ -9,11 +9,14 @@ const loginSlice = createSlice({
   initialState,
   reducers: {
     setLogin(state: any, isLogged) {
-      state.isLogged = isLogged;
+      state.isLogged = isLogged.payload;
+    },
+    setLogout(state: any) {
+      state.isLogged = [...state.isLogged, false];
     }
   }
 })
 
 export default loginSlice.reducer;
 
-export const { setLogin } = loginSlice.actions;
+export const { setLogin, setLogout } = loginSlice.actions;
