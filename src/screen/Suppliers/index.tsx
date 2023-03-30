@@ -1,47 +1,81 @@
-import { useState } from 'react';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import { useEffect, useState } from 'react';
 import { Card } from "@material-ui/core";
-import { TextField, Button, FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { SelectChangeEvent } from '@mui/material/Select';
+import Grid from '@mui/material/Grid';
+import SuppliersTable from '../../components/Table/SuppliersTable';
+import Spinner from '../../components/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { fetchSuppliersAction } from '../../redux/store/fetchActions';
+import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const Suppliers = () => {
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+
+        dispatch(fetchSuppliersAction());
+
+    }, [])
+
     const [age, setAge] = useState('');
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value);
-    };
+    //  interface AuthState {
+    //     auth: {
+    //         isAuthentication: boolean;
+    //     };
+    //     user: User | null;
+    //     token: string | null;
+    //   }
+
+    // const  isAuthentication = useSelector((state: AuthState) => state.auth.isAuthentication);
+
+    interface LoadingState {
+        loading: {
+            isLoading: boolean
+        }
+    }
+
+
+    const   loading   = useSelector((state: LoadingState) => state.loading.isLoading);
+
+    console.log(loading)
+    // const handleChange = (event: SelectChangeEvent) => {
+    //     setAge(event.target.value);
+    // };
 
     return (
-        <Container maxWidth={false} style={{ backgroundColor: "#f3f3f366", width: "55%", height: "600px" }}>
-            <Grid container spacing={2} >
-            <Grid item xs={6} sm={12} md={12}>
-                <Card style={{marginTop: 80, height: "150px", display: "flex",justifyContent: "center", alignItems: "center"}}>
-                <div><img
-                  style={{
-                    borderRadius: "15px",
-                    height: "49px",
-                    width: "240px",
-                  }}
-                  alt="complex"
-                  src="https://www.manyminds.com.br/assets/images/manyminds.png"
-                /></div>
-                </Card>
+        <Grid container spacing={0} style={{ marginTop: 40 }}>
+            <Grid item xs={12} sm={12} md={12} lg={12} style={{ display: "flex", backgroundColor: "#8545", justifyContent: "center" }}>
+                <div style={{ position: 'absolute' }}>
+                    <Card>
+
+                        {
+                            loading ?
+                                <>
+                                    <Link to={'/produtos/registrar'}>
+                                        <Button style={{ marginBottom: '10px', float: 'right', height: 40, width: 200 }} variant="contained" color="primary">
+                                            Cadastrar novo
+                                        </Button>
+                                    </Link>
+                                    <div style={{ width: 800, height: '100%', display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                                        {/* <BasicTable products={products}/>  */}
+                                        <SuppliersTable />
+                                    </div>
+                                </>
+                                : <Spinner />
+                        }
+
+
+                    </Card>
+                </div>
+
             </Grid>
-            <Grid item xs={6} sm={12} md={12}>
-                <Card style={{ height: "342px",marginTop: '100px', display: "flex",justifyContent: "center", alignItems: "center"}}>
-                    <div style={{backgroundColor: "#eeefef", width: "60%",height: 340, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-                    <FormLabel>CADASTRO DE FORNECEDOR</FormLabel>
-                        
-                    </div>
-                </Card>
-            </Grid>
-            </Grid>
-        </Container>
+        </Grid>
     )
 }
 export default Suppliers;

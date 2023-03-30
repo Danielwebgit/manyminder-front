@@ -131,6 +131,7 @@ const UsersTable = () => {
             <TableCell>ID</TableCell>
             <TableCell align="right">Nome</TableCell>
             <TableCell align="right">Tipo de Usuário</TableCell>
+            <TableCell align="right">Situação</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -149,7 +150,7 @@ const UsersTable = () => {
               {row.name == null ? 'Não definido' : row.name}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                <Button onClick={() => handleProductDelete(row.id)} >Desativar</Button>
+              {row.activated === '1' ? <span style={{backgroundColor: '#81f292'}}>Ativado</span> : <span style={{backgroundColor: '#ffb31c'}}>Desativado</span>}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
               <Link to={`/produtos/editar/${row.id}`}>

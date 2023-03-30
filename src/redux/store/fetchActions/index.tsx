@@ -1,6 +1,8 @@
 import api from '../../../Services/api';
 import apiService from '../../../Services/apiService';
-import { setLoading, setProducts, deleteProduct, setAuthorization } from '../ducks/products';
+import { setProducts, deleteProduct, setAuthorization } from '../ducks/products';
+import { setSuppliers } from '../ducks/suppliers';
+import { setLoading } from '../ducks/loading';
 import { setUsers } from '../ducks/users';
 import { setLogin } from '../ducks/login';
 import Swal from 'sweetalert2'
@@ -34,6 +36,21 @@ export const fetchProducts = (): any => {
       }
       dispatch(setProducts(response.data));
       dispatch(setLoading(false))
+    });
+  }
+}
+
+export const fetchSuppliersAction = (): any => {
+  
+  return (dispatch: any) => {
+    
+    dispatch(setLoading(true));
+    api.get('/suppliers').then((response) => {
+      console.log(response.data)
+      dispatch(setSuppliers(response.data));
+      dispatch(setLoading(false))
+    }).then((error) => {
+      console.log(error)
     });
   }
 }
