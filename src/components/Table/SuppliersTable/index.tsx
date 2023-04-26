@@ -93,6 +93,7 @@ const SuppliersTable = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const { suppliers }: any = useSelector((state: RootState): any => state.suppliers) ?? [];
+  console.log(suppliers)
 
   const rowSlice = suppliers?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 

@@ -130,7 +130,7 @@ const UsersTable = () => {
           <TableRow>
             <TableCell>ID</TableCell>
             <TableCell align="right">Nome</TableCell>
-            <TableCell align="right">Tipo de Usuário</TableCell>
+            <TableCell align="right">Telefone</TableCell>
             <TableCell align="right">Situação</TableCell>
           </TableRow>
         </TableHead>
@@ -147,13 +147,13 @@ const UsersTable = () => {
               {row.username}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-              {row.name == null ? 'Não definido' : row.name}
+              {row.telefone}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
               {row.activated === '1' ? <span style={{backgroundColor: '#81f292'}}>Ativado</span> : <span style={{backgroundColor: '#ffb31c'}}>Desativado</span>}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-              <Link to={`/produtos/editar/${row.id}`}>
+              <Link to={`/users/editar/${row.id}`}>
                 <Button onClick={() => handleProductEdit(row)} >Editar</Button>
               </Link> 
               </TableCell>

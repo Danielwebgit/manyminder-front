@@ -4,19 +4,22 @@ import { Box } from "@mui/system";
 import { NavLink } from "react-router-dom";
 import useLoggedIn from '../../Hooks/LoggedIn';
 import useLogout from '../../Hooks/Logout';
-import { useEffect } from "react";
+import useMessage from '../../Hooks/Message';
+import { useEffect, useState } from "react";
 
 export default function Header(this: any) {
 
-  const login = useLoggedIn();
-  const logout = useLogout();
+const login = useLoggedIn();
 
+const logout = useLogout();
+  
   useEffect(() => {
+   
   },[login])
 
   return (
-    login.isLogged ?
-      <Grid container spacing={0}>
+    login?
+    <Grid container spacing={0}>
         <Grid item xs={12} sm={12} md={12} lg={12} style={{ backgroundColor: "#8545" }}>
           <HeaderContent>
             <div className="logo">
@@ -32,6 +35,11 @@ export default function Header(this: any) {
             <Box>
               <ul className="menu">
                 <>
+                <li>
+                    <NavLink to="/config-permissoes" className="nav-link">
+                      PERMISSÕES
+                    </NavLink>
+                  </li>
                   <li>
                     <NavLink to="/fornecedores" className="nav-link">
                       FORNECEDORES
@@ -57,7 +65,7 @@ export default function Header(this: any) {
             </Box>
           </HeaderContent>
         </Grid>
-      </Grid>
+      </Grid> 
     : <div></div>
   )
 

@@ -14,7 +14,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
 interface isLoggedState {
 
     login: {
@@ -30,6 +29,7 @@ const SingIn = () => {
     const { isLogged } = useSelector((state: isLoggedState): any => state.login);
     
     if(isLogged){
+        toast('Bem vindo de volta!');
         navigate('/produtos');
     }
 
@@ -61,11 +61,11 @@ const SingIn = () => {
               <form style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}} onSubmit={handleSubmit}>
                   <FormControl>
                       <FormGroup style={{margin: 12}}>
-                          <TextField size="small" variant="outlined" style={{background: '#fff', borderWidth: "1"}} name="email" value={formValues.email} onChange={handleChange} label="Nome" />
+                          <TextField size="small" variant="outlined" style={{background: '#fff', borderWidth: "1"}} name="email" value={formValues.email} onChange={handleChange} label="E-mail" />
                       </FormGroup>
 
                       <FormGroup style={{margin: 12}}>
-                          <TextField size="small" variant="outlined" style={{background: '#fff', borderWidth: "1"}} name="password" value={formValues.password} onChange={handleChange} label="E-mail" />
+                          <TextField type="password" size="small" variant="outlined" style={{background: '#fff', borderWidth: "1"}} name="password" value={formValues.password} onChange={handleChange} label="Senha" />
                       </FormGroup>
                   </FormControl>
 

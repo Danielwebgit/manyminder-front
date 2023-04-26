@@ -5,6 +5,7 @@ import loginReduce from './ducks/login';
 import usersReduce from './ducks/users';
 import loadingReduce from './ducks/loading';
 import suppliersReduce from './ducks/suppliers';
+import authorizationReduce from './ducks/authorization';
 
 const store = configureStore({
   reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
       suppliers: suppliersReduce,
       login: loginReduce,
       users: usersReduce,
-      loading: loadingReduce
+      loading: loadingReduce,
+      authorization: authorizationReduce
   }
 });
 

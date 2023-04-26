@@ -1,6 +1,8 @@
 import api from '../../../Services/api';
 import apiService from '../../../Services/apiService';
-import { setProducts, deleteProduct, setAuthorization } from '../ducks/products';
+import { setProducts, deleteProduct } from '../ducks/products';
+import { setAuthorization } from '../ducks/authorization';
+
 import { setSuppliers } from '../ducks/suppliers';
 import { setLoading } from '../ducks/loading';
 import { setUsers } from '../ducks/users';
@@ -15,7 +17,8 @@ export const actionLogin = (email: string, password: string) => {
     
     loginRequest.then((response: any) => {
       dispatch(setLogin(true))
-      localStorage.setItem('token',response.data.token)
+      console.log(response.data)
+      localStorage.setItem('token', response.data.token)
     }).catch((response: any) => {
       dispatch(setLogin(false))
     })
@@ -29,13 +32,13 @@ export const fetchProducts = (): any => {
     dispatch(setLoading(true));
     
     api.get('/products').then((response) => {
-      console.log(response.data.error)
-      if(response.data.error){
-        dispatch(setLoading(false))
-        dispatch(setAuthorization(false));
-      }
+
       dispatch(setProducts(response.data));
+      dispatch(setAuthorization(true));
       dispatch(setLoading(false))
+
+    }).catch((error) => {
+      console.log(error)
     });
   }
 }
@@ -51,6 +54,7 @@ export const fetchSuppliersAction = (): any => {
       dispatch(setLoading(false))
     }).then((error) => {
       console.log(error)
+      dispatch(setAuthorization(false));
     });
   }
 }
@@ -62,8 +66,9 @@ export const fetchUsers = (): any => {
     dispatch(setLoading(true));
     
     api.get('/users').then((response) => {
-
+      console.log(response.data)
       dispatch(setUsers(response.data));
+      dispatch(setAuthorization(true));
       dispatch(setLoading(false))
 
     }).catch(() => {

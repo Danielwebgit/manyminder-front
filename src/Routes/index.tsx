@@ -5,24 +5,29 @@ import Suppliers from '../screen/Suppliers';
 import Product from '../screen/Product';
 import Users from '../screen/Users';
 import CreateProduct from '../screen/Product/create';
+import CreateUser from '../screen/Users/create';
 import NoAuthorization from '../screen/NoAuthorization';
+import NotFoundPage from '../screen/NotFoundPage';
 import CreateSupplier from '../screen/Suppliers/create';
-import jwtDecode from 'jwt-decode';
+import useLoggedIn from '../Hooks/LoggedIn';
+import { toast, ToastContainer } from "react-toastify";
+import ConfigPermissoes from '../screen/ConfigPermissoes';
 
 export const AppRoutes = () => {
 
-    interface Token {
-        API_TIME: number;
-      }
+   
+    //const notify = () => toast("Wow so easy!");
 
+    const isLogged = useLoggedIn();
+    console.log(isLogged)
     function checkIsAuthenticated()  {
         
-        const token = localStorage.getItem('token');
+        //const token = localStorage.getItem('token');
 
-        if (!token) {
-            return false;
-        } else {
+        if (isLogged) {
             return true;
+        } else {
+            return false;
         }
       }
 
@@ -30,7 +35,6 @@ export const AppRoutes = () => {
 
         
         if (checkIsAuthenticated()) {
-            
             return children
           }
             
@@ -38,12 +42,13 @@ export const AppRoutes = () => {
     }
 
     return (
-        
-        <Routes>
+        <>
+        <div className="message">
+                <ToastContainer />
+            </div>
+            <Routes>
                 <Route path='/login' element={
-                    
-                        <SingIn/>
-                   
+                    <SingIn/>
                 }/>
                 <Route path='/cadastrar' element={
                     <PrivateRoute>
@@ -66,6 +71,11 @@ export const AppRoutes = () => {
                     <Product/>
                 </PrivateRoute>
                 }/>
+                <Route path='/config-permissoes' element={
+                <PrivateRoute>
+                    <ConfigPermissoes/>
+                </PrivateRoute>
+                }/>
                 <Route path='/usuarios' element={
                 <PrivateRoute>
                     <Users/>
@@ -81,11 +91,23 @@ export const AppRoutes = () => {
                     <CreateProduct/>
                 </PrivateRoute>
                 }/>
+
+                <Route path='/users/editar/:userId' element={
+                <PrivateRoute>
+                    <CreateUser/>
+                </PrivateRoute>
+                }/>
+
                 <Route path='/nao-autorizado' element={
                         <NoAuthorization/>
                 }/>
+
+                <Route path='/pagina-nao-encontrada' element={
+                        <NotFoundPage/>
+                }/>
                 
-                <Route path='*' element={<Navigate to="login" />}/>
+                <Route path='*' element={ <Navigate to="/pagina-nao-encontrada" />}/>
         </Routes>
+        </>
     )
 }

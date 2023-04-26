@@ -27,7 +27,7 @@ export const addProduct = (formData: any) => {
 export const login = (email: any, password: any) => {
   
   const apiLogin = axios.create({
-      baseURL: 'https://danielsystemdev.com',
+      baseURL: 'http://www.manyminder.com.test',
       headers: {
         'Content-Type': 'multipart/form-data'
       }
